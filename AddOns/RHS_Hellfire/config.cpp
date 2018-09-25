@@ -81,437 +81,237 @@ class CfgPatches
 		magazines[]={};
 	};
 };
-class RscControlsGroup;
-class RscText;
-class RangeText: RscText
-{
-};
-class RscPicture;
-class RscOpticsText;
-class RscIGProgress;
-class RscOpticsValue;
-class VScrollbar;
-class HScrollbar;
-class RscLadderPicture;
-class RscControlsGroupNoScrollbars;
-class RscIGUIValue;
-class MFD;
-class Components;
+class cfgMagazines {
 
-class AirplaneHUD;
-class Draw;
-class AltNumber;
-class AltNumberAGL;
-class SpeedNumber;
-class RscIGUIText;
-class RscVehicleToggles;
-class DefaultVehicleSystemsDisplayManagerLeft
-{
-	class components;
-};
-class DefaultVehicleSystemsDisplayManagerRight
-{
-	class components;
-};
-class RscInGameUI
-{
-	class RscUnitInfo;
-	class RscUnitInfo_MELB: RscUnitInfo
+	// Edit the ACE pylons to use the correct models
+	class 6Rnd_ACE_Hellfire_AGM114K;
+	class PylonRack_1Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K
 	{
-	};
-	class RscUnitInfoAir_NoRadar_MELB: RscUnitInfo
-	{
-		controls[]=
+		displayName="2x AGM-114K";
+		count=2;
+		weight=90;
+		pylonWeapon="ace_hellfire_launcher";
+		ammo="ACE_Hellfire_AGM114K";
+		hardpoints[]=
 		{
-			"CA_VehicleToggles",
-			"WeaponInfoControlsGroupRight"
+			"B_MISSILE_PYLON",
+			"SCALPEL_1RND_EJECTOR",
+			"B_ASRRAM_EJECTOR",
+			"UNI_SCALPEL",
+			"CUP_NATO_HELO_SMALL",
+			"CUP_NATO_HELO_LARGE",
+			"RHS_HP_MELB"
 		};
-		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay')";
+		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_m_agm114_2x";
+		mirrorMissilesIndexes[]={2,1};
 	};
-	class Rsc_MELB_UnitInfo: RscUnitInfoAir_NoRadar_MELB
-	{
-		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay');_this call RHS_MELB_fnc_handler";
+	class PylonRack_1Rnd_ACE_Hellfire_AGM114N: PylonRack_1Rnd_ACE_Hellfire_AGM114K {
+		displayName="2x AGM-114N";
+		ammo="ACE_Hellfire_AGM114N";
+	}
+	class PylonRack_4Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K {
+		displayName="4x AGM-114K";
+		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_m_agm114_4x";
+		mirrorMissilesIndexes[]={2,1,4,3};
 	};
-	class Rsc_MELB_Turret_UnitInfo: RscUnitInfo
+	class PylonRack_4Rnd_ACE_Hellfire_AGM114N: PylonRack_4Rnd_ACE_Hellfire_AGM114K {
+		displayName="4x AGM-114N";
+		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_m_agm114_4x";
+		mirrorMissilesIndexes[]={2,1,4,3};
+		ammo="ACE_Hellfire_AGM114N";
+	};
+	class PylonRack_3Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K
 	{
-		idd=300;
-		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay'); _this spawn RHS_MELB_fnc_FLIRHandler";
-		controls[]=
+		displayName="3x AGM-114K";
+	};
+	// Hide the RHS pylons
+	class rhs_mag_AGM114K;
+	class rhs_mag_AGM114K_2: rhs_mag_AGM114K {
+		hardpoints[]=
 		{
-			"MELB_GUI"
-		};
-		class VScrollbar;
-		class HScrollbar;
-		class MELB_GUI: RscControlsGroup
-		{
-			idc=170;
-			class VScrollbar: VScrollbar
-			{
-				width=0;
-			};
-			class HScrollbar: HScrollbar
-			{
-				height=0;
-			};
-			x="0 *   (0.01875 * SafezoneH) +   (SafezoneX + ((SafezoneW - SafezoneH) / 2))";
-			y="0 *   (0.025 * SafezoneH) +   (SafezoneY)";
-			w="53.5 *   (0.01875 * SafezoneH)";
-			h="40 *   (0.025 * SafezoneH)";
-			class controls
-			{
-				class TextDistance: RangeText
-				{
-					idc=1010;
-					text="RNG";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="41.8 *   (0.01875 * SafezoneH)";
-					y="4.8 *   (0.025 * SafezoneH)";
-					w="3*   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class CA_Distance: RscText
-				{
-					idc=151;
-					sizeEx="0.0295*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					font="PuristaMedium";
-					x="46 *   (0.01875 * SafezoneH)";
-					y="4.8 *   (0.025 * SafezoneH)";
-					w="4 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class TextSpeed: RangeText
-				{
-					idc=1010;
-					text="SPD";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="2.5 *   (0.01875 * SafezoneH)";
-					y="4.8 *   (0.025 * SafezoneH)";
-					w="8 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class CA_Speed: RangeText
-				{
-					idc=188;
-					sizeEx="0.0295*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					font="PuristaMedium";
-					text="120";
-					x="8 *   (0.01875 * SafezoneH)";
-					y="4.8 *   (0.025 * SafezoneH)";
-					w="4 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class TextAlt: RangeText
-				{
-					idc=1010;
-					text="ALT";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="2.5 *   (0.01875 * SafezoneH)";
-					y="5.6 *   (0.025 * SafezoneH)";
-					w="8 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class CA_Alt: RangeText
-				{
-					idc=189;
-					sizeEx="0.0295*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					font="PuristaMedium";
-					text="3825";
-					x="8 *   (0.01875 * SafezoneH)";
-					y="5.6 *   (0.025 * SafezoneH)";
-					w="4 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class CA_VisionMode: RscText
-				{
-					idc=152;
-					sizeEx="0.022*SafezoneH";
-					colorText[]={0,0,0,1};
-					colorBackground[]={1,1,1,1};
-					shadow=0;
-					font="PuristaMedium";
-					text="VIS";
-					x="25.75 *   (0.01875 * SafezoneH)";
-					y="7.25 *   (0.025 * SafezoneH)";
-					w="1.5 *   (0.01875 * SafezoneH)";
-					h="0.6 *   (0.025 * SafezoneH)";
-				};
-				class CA_FlirMode: RscText
-				{
-					idc=153;
-					sizeEx="0.022*SafezoneH";
-					shadow=2;
-					colorText[]={1,1,1,1};
-					font="PuristaMedium";
-					text="BHOT";
-					x="25.5*   (0.01875 * SafezoneH)";
-					y="7.75 *   (0.025 * SafezoneH)";
-					w="2*   (0.01875 * SafezoneH)";
-					h="0.8 *   (0.025 * SafezoneH)";
-				};
-				class TextACPOS: RangeText
-				{
-					idc=1010;
-					text="CRAFT POS";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="2.5 *   (0.01875 * SafezoneH)";
-					y="3 *   (0.025 * SafezoneH)";
-					w="8 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class ValueACPOS: RangeText
-				{
-					idc=171;
-					font="PuristaMedium";
-					sizeEx="0.0295*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="2.5 *   (0.01875 * SafezoneH)";
-					y="4 *   (0.025 * SafezoneH)";
-					w="6 *   (0.01875 * SafezoneH)";
-					h="1 *   (0.025 * SafezoneH)";
-				};
-				class TextTPOS: RangeText
-				{
-					idc=1010;
-					text="TARGET POS";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="41.8*   (0.01875 * SafezoneH)";
-					y="3 *   (0.025 * SafezoneH)";
-					w="8 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class ValueTPOS: RangeText
-				{
-					idc=172;
-					font="PuristaMedium";
-					sizeEx="0.0295*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="41.8*   (0.01875 * SafezoneH)";
-					y="4 *   (0.025 * SafezoneH)";
-					w="6 *   (0.01875 * SafezoneH)";
-					h="1 *   (0.025 * SafezoneH)";
-				};
-				class ValueTime: RangeText
-				{
-					idc=190;
-					text="20:28:35";
-					font="PuristaMedium";
-					sizeEx="0.0295*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="2.5*   (0.01875 * SafezoneH)";
-					y="9 *   (0.025 * SafezoneH)";
-					w="6 *   (0.01875 * SafezoneH)";
-					h="1 *   (0.025 * SafezoneH)";
-				};
-				class TextLaser: RangeText
-				{
-					idc=158;
-					text="LRF    ARMED";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={0.89999998,0,0,1};
-					shadow=2;
-					x="3*   (0.01875 * SafezoneH)";
-					y="14.1 *   (0.025 * SafezoneH)";
-					w="13 *   (0.01875 * SafezoneH)";
-					h="2 *   (0.025 * SafezoneH)";
-				};
-				class CA_Heading: RscText
-				{
-					idc=156;
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					font="PuristaMedium";
-					text="023";
-					x="27.25*   (0.01875 * SafezoneH)";
-					y="5 *   (0.025 * SafezoneH)";
-					w="4 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class TextHDG: RangeText
-				{
-					idc=1010;
-					text="HDG";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="24*   (0.01875 * SafezoneH)";
-					y="5*   (0.025 * SafezoneH)";
-					w="4 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-				class OpticsZoom1: RangeText
-				{
-					idc=180;
-					text="28x";
-					colorText[]={1,1,1,1};
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					shadow=2;
-					x="5 *   (0.01875 * SafezoneH)";
-					y="25 *   (0.025 * SafezoneH)";
-					w="6 *   (0.01875 * SafezoneH)";
-					h="1 *   (0.025 * SafezoneH)";
-				};
-				class TextZOOM: RangeText
-				{
-					idc=1010;
-					text="ZOOM";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="2.5 *   (0.01875 * SafezoneH)";
-					y="25 *   (0.025 * SafezoneH)";
-					w="4 *   (0.01875 * SafezoneH)";
-					h="1 *   (0.025 * SafezoneH)";
-				};
-				class ValueGEOLOCK: RscText
-				{
-					idc=154;
-					text="TRK COR";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="42*   (0.01875 * SafezoneH)";
-					y="33 *   (0.025 * SafezoneH)";
-					w="8 *   (0.01875 * SafezoneH)";
-					h="1 *   (0.025 * SafezoneH)";
-				};
-				class TextGEOLOCK: RangeText
-				{
-					idc=1010;
-					text="GEOLOCK";
-					font="PuristaMedium";
-					sizeEx="0.0255*SafezoneH";
-					colorText[]={1,1,1,1};
-					shadow=2;
-					x="42*   (0.01875 * SafezoneH)";
-					y="32 *   (0.025 * SafezoneH)";
-					w="8 *   (0.01875 * SafezoneH)";
-					h="1.2 *   (0.025 * SafezoneH)";
-				};
-			};
 		};
 	};
-	class RscUnitInfoAir;
-	class RscUnitInfoAirRTDFullNoWeapon;
-	class RscUnitInfoAirRTD_NoRadar_MELB: RscUnitInfoAirRTDFullNoWeapon
+	class rhs_mag_AGM114K_4: rhs_mag_AGM114K_2
 	{
-		onLoad="['onLoad',_this,'RscUnitInfoAirRTDFullNoWeapon','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay')";
-	};
-	class Rsc_MELB_RTD_UnitInfo: RscUnitInfoAirRTD_NoRadar_MELB
-	{
-		controls[]=
+		hardpoints[]=
 		{
-			"CA_VehicleTogglesBackground",
-			"CA_VehicleToggles",
-			"CA_Horizon_Lite",
-			"CA_Speed_Analogue",
-			"CA_Altitude_Analogue",
-			"CA_Horizon_Analogue",
-			"CA_Stability_Analogue",
-			"CA_Compass_Analogue",
-			"WeaponInfoControlsGroupRight"
 		};
-		onLoad="['onLoad',_this,'RscUnitInfoAirRTD_NoRadar_MELB','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay');_this call RHS_MELB_fnc_handler";
+	};
+	class rhs_mag_AGM114N;
+	class rhs_mag_AGM114N_2: rhs_mag_AGM114N
+	{
+		hardpoints[]=
+		{
+		};
+	};
+	class rhs_mag_AGM114N_4: rhs_mag_AGM114N_2
+	{
+		hardpoints[]=
+		{
+		};
+	};
+	class rhs_mag_AGM114M;
+	class rhs_mag_AGM114M_2: rhs_mag_AGM114M
+	{
+		hardpoints[]=
+		{
+		};
+	};
+	class rhs_mag_AGM114M_4: rhs_mag_AGM114M_2
+	{
+		hardpoints[]=
+		{
+		};
+	};
+	class 24Rnd_PG_missiles;
+	class rhs_mag_DAGR_4: 24Rnd_PG_missiles {
+		hardpoints[]=
+		{
+		};
+	};
+	class rhs_mag_DAGR_8: rhs_mag_DAGR_4 {
+		hardpoints[]=
+		{
+		};
+	};
+	class rhs_mag_DAGR_16: rhs_mag_DAGR_8 {
+		hardpoints[]=
+		{
+		};
+	};
+	class aa_dagr_4: rhs_mag_AGM114K
+	{
+		count=4;
+		displayName="DAGR 4x";
+		displayNameShort="DAGR 4x";
+		ammo="aa_ammo_dagr";
+		weight=32;
+		hardpoints[]=
+		{
+			"RHS_HP_HELLFIRE_SINGLE",
+			"RHS_HP_MELB"
+		};
+		pylonWeapon="aa_dagr_launcher";
+		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_r_DAGR_4x";
+		mirrorMissilesIndexes[]={2,1,4,3};
+	};
+	class aa_dagr_8: aa_dagr_4
+	{
+		count=8;
+		displayName="DAGR 8x";
+		displayNameShort="DAGR 8x";
+		ammo="aa_ammo_dagr";
+		weight=64;
+		hardpoints[]=
+		{
+			"RHS_HP_HELLFIRE_RACK",
+			"RHS_HP_LONGBOW_RACK",
+			"RHS_HP_MELB"
+		};
+		pylonWeapon="aa_dagr_launcher";
+		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_r_DAGR_8x";
+		mirrorMissilesIndexes[]={2,1,4,3,6,5,8,7};
+	};
+	class aa_dagr_16: aa_dagr_8
+	{
+		count=16;
+		displayName="DAGR 16x";
+		displayNameShort="DAGR 16x";
+		weight=128;
+		hardpoints[]=
+		{
+			"RHS_HP_HELLFIRE_RACK",
+			"RHS_HP_LONGBOW_RACK"
+		};
+		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_r_DAGR_16x";
+		mirrorMissilesIndexes[]={2,1,4,3,8,7,6,5,12,11,10,9,14,13,16,15};
 	};
 };
-class Turrets;
-class MainTurret;
-class UserActions;
-class CfgWeapons {
+class cfgAmmo {
+	class M_PG_AT;
+	class ACE_Hellfire_AGM114K: M_PG_AT
+	{
+		model="\rhsusf\addons\rhsusf_airweapons\proxyammo\rhsusf_m_AGM114K_fly";
+		proxyShape="\rhsusf\addons\rhsusf_airweapons\proxyammo\rhsusf_m_AGM114K";
+	};
+	class RHS_ammo_AGM_114M;
+	class aa_ammo_dagr: RHS_ammo_AGM_114M {
+
+		displayName="DAGR";
+		displayNameShort="DAGR";
+		maverickWeaponIndexOffset=80;
+		model="\rhsusf\addons\rhsusf_airweapons\proxyammo\rhsusf_r_DAGR_fly";
+		proxyShape="\rhsusf\addons\rhsusf_airweapons\proxyammo\rhsusf_r_DAGR";
+		hit=300;
+		indirectHit=50;
+		indirectHitRange=6;
+		cost=100;
+		maxSpeed=720;
+		irLock=0;
+		airLock=0;
+		laserLock=1;
+		maxControlRange=8000;
+		trackOversteer=1;
+		trackLead=1;
+		maneuvrability=14;
+		timeToLive=20;
+		simulationStep=0.0099999998;
+		airFriction=0.1;
+		sideAirFriction=0.30000001;
+		initTime=0.0020000001;
+		thrustTime=1.5700001;
+		thrust=825;
+		fuseDistance=50;
+		whistleDist=4;
+		muzzleEffect="";
+		effectsMissileInit="MissileDAR1";
+		effectsMissile="missile1";
+		explosionEffects="ATMissileExplosion";
+		weaponLockSystem=4;
+		manualControl=1;
+		aiAmmoUsageFlags="64 + 128+512";
+		missileLockMaxDistance=6000;
+		missileLockMinDistance=1000;
+		missileLockMaxSpeed=56;
+		missileLockCone=25;
+		missileKeepLockedCone=25;
+
+        ace_rearm_caliber = 178;
+
+		 class ace_missileguidance {
+	        enabled = 1;
+
+	        minDeflection = 0.0005;      // Minium flap deflection for guidance
+	        maxDeflection = 0.01;       // Maximum flap deflection for guidance
+	        incDeflection = 0.0005;      // The incrmeent in which deflection adjusts.
+
+	        canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+	        // Guidance type for munitions
+	        defaultSeekerType = "SALH";
+	        seekerTypes[] = { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+	        defaultSeekerLockMode = "LOAL";
+	        seekerLockModes[] = { "LOAL", "LOBL" };
+
+	        seekLastTargetPos = 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+	        seekerAngle = 70;           // Angle in front of the missile which can be searched
+	        seekerAccuracy = 1;         // seeker accuracy multiplier
+
+	        seekerMinRange = 1;
+	        seekerMaxRange = 5000;      // Range from the missile which the seeker can visually search
+
+	        // Attack profile type selection
+	        defaultAttackProfile = "hellfire";
+	        attackProfiles[] = {"hellfire"};
+	    };
+
+	};
+};
+class cfgWeapons {
 	class rhs_weap_HellfireLauncher;
-	class rhs_weap_AGM114K_Launcher: rhs_weap_HellfireLauncher
+	class rhs_weap_DAGR_Launcher: rhs_weap_HellfireLauncher
 	{
-		displayName="AGM-114K Hellfire II";
-		displayNameShort = "AGM-114K";
-        ace_hellfire_enabled = 1; // handle adding interactions and adding Laser Designator
-        ace_laser_canSelect = 1; // can ace_laser lock (allows switching laser code)
-        ace_laser_showHud = 1; // show attack profile / lock on hud
-        autoFire = 0;
-        canLock = 0;
-        weaponLockSystem = 0;
-        lockingTargetSound[] = {"",0,1};
-        lockedTargetSound[] = {"",0,1};
-        cursor = "EmptyCursor";
-        cursorAim = "missile";
-        showAimCursorInternal = 0;
-
-		class Direct;
-		class TopDown: Direct
-		{
-			displayName="AGM-114K";
-			displayNameShort="AGM-114K";
-		};
-		magazines[]=
-		{
-			"rhs_mag_agm114K_4",
-			"rhs_mag_agm114K_2",
-			"rhs_mag_agm114K"
-		};
-	};
-	class rhs_weap_AGM114L_Launcher: rhs_weap_HellfireLauncher
-	{
-		displayName="AGM-114L Hellfire II";
-		displayNameShort = "AGM-114L";
-		canLock=2;
-		weaponLockDelay=3;
-		missileLockCone=65;
-		cursorSize=0;
-		cursor="missile";
-		cursorAim="EmptyCursor";
-		aiRateOfFire=5;
-		aiRateOfFireDistance=4000;
-		maxrange=8000;
-		maxrangeprobab=0.1;
-		midrange=2000;
-		midrangeprobab=0.89999998;
-		minrange=250;
-		minrangeprobab=0.60000002;
-		class Direct;
-		class TopDown: Direct
-		{
-			displayName="AGM-114L";
-			displayNameShort="AGM-114L";
-		};
-		magazines[]=
-		{
-			"rhs_mag_agm114L_4",
-			"rhs_mag_agm114L_2",
-			"rhs_mag_agm114L"
-		};
-	};
-	class rhs_weap_AGM114M_Launcher: rhs_weap_AGM114K_Launcher
-	{
-		displayName="AGM-114M Hellfire II";
-		displayNameShort = "AGM-114M";
         ace_hellfire_enabled = 1; // handle adding interactions and adding Laser Designator
         ace_laser_canSelect = 1; // can ace_laser lock (allows switching laser code)
         ace_laser_showHud = 1; // show attack profile / lock on hud
@@ -525,45 +325,9 @@ class CfgWeapons {
         showAimCursorInternal = 0;
 		magazines[]=
 		{
-			"rhs_mag_agm114M_4",
-			"rhs_mag_agm114M_2",
-			"rhs_mag_agm114M"
-		};
-
-		class Direct;
-		class TopDown: Direct
-		{
-			displayName="AGM-114M";
-			displayNameShort="AGM-114M";
-		};
-	};
-	class rhs_weap_AGM114N_Launcher: rhs_weap_AGM114M_Launcher
-	{
-		displayName="AGM-114N Hellfire II";
-		displayNameShort = "AGM-114N";
-        ace_hellfire_enabled = 1; // handle adding interactions and adding Laser Designator
-        ace_laser_canSelect = 1; // can ace_laser lock (allows switching laser code)
-        ace_laser_showHud = 1; // show attack profile / lock on hud
-        autoFire = 0;
-        canLock = 0;
-        weaponLockSystem = 0;
-        lockingTargetSound[] = {"",0,1};
-        lockedTargetSound[] = {"",0,1};
-        cursor = "EmptyCursor";
-        cursorAim = "missile";
-        showAimCursorInternal = 0;
-		magazines[]=
-		{
-			"rhs_mag_agm114N_4",
-			"rhs_mag_agm114N_2",
-			"rhs_mag_agm114N"
-		};
-
-		class Direct;
-		class TopDown: Direct
-		{
-			displayName="AGM-114N";
-			displayNameShort="AGM-114N";
+			"rhs_mag_DAGR_4",
+			"rhs_mag_DAGR_8",
+			"rhs_mag_DAGR_16"
 		};
 	};
 	class aa_dagr_launcher: rhs_weap_HellfireLauncher
@@ -659,421 +423,207 @@ class CfgWeapons {
 			};
 		};
 	};
-	class rhs_weap_DAGR_Launcher: rhs_weap_HellfireLauncher
-	{
-        ace_hellfire_enabled = 1; // handle adding interactions and adding Laser Designator
-        ace_laser_canSelect = 1; // can ace_laser lock (allows switching laser code)
-        ace_laser_showHud = 1; // show attack profile / lock on hud
-        autoFire = 0;
-        canLock = 0;
-        weaponLockSystem = 0;
-        lockingTargetSound[] = {"",0,1};
-        lockedTargetSound[] = {"",0,1};
-        cursor = "EmptyCursor";
-        cursorAim = "missile";
-        showAimCursorInternal = 0;
-		magazines[]=
-		{
-			"rhs_mag_DAGR_4",
-			"rhs_mag_DAGR_8",
-			"rhs_mag_DAGR_16"
-		};
-	};
 };
-class CfgAmmo {
-	class rhs_ammo_Hellfire_AT;
+class cfgVehicles {
 
-	class RHS_ammo_AGM_114K: rhs_ammo_Hellfire_AT
+	// Edit presets for AH-6
+	class Helicopter_Base_F;
+	class Helicopter_Base_H: Helicopter_Base_F {
+		class Components;
+	}
+	class RHS_MELB_base: Helicopter_Base_H {
+
+	};
+	class RHS_MELB_AH6M: RHS_MELB_base {
+		class Components: Components
+		{
+			class TransportPylonsComponent
+			{
+				class Presets
+				{
+					class Heavy
+					{
+						attachment[]=
+						{
+							"rhsusf_mag_gau19_melb_left",
+							"",
+							"",
+							"PylonRack_1Rnd_ACE_Hellfire_AGM114K"
+						};
+						displayname="Heavy";
+					};
+				};
+			};
+		};
+	}
+
+	// Edit presets for AH-64D
+	class Heli_Attack_01_base_F: Helicopter_Base_F
 	{
-        displayName = "AGM-114K";
-        displayNameShort = "AGM-114K";
-        description = "AGM-114K";
-        descriptionShort = "AGM-114K";
-
-
-        hit = 1400;
-        indirectHit = 71;
-        indirectHitRange = 4.5;
-        effectsMissile = "missile2";
-
-        irLock = 0;
-        laserLock = 0;
-        manualControl = 0;
-        maxSpeed = 450;
-
-        thrustTime = 2.5; // motor burn 2-3 sec
-        thrust = 250;
-        timeToLive = 40;
-
-        ace_rearm_caliber = 178;
-
-        class ace_missileguidance {
-            enabled = 1;
-
-            minDeflection = 0.0005;      // Minium flap deflection for guidance
-            maxDeflection = 0.01;       // Maximum flap deflection for guidance
-            incDeflection = 0.0005;      // The incrmeent in which deflection adjusts.
-
-            canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
-
-            // Guidance type for munitions
-            defaultSeekerType = "SALH";
-            seekerTypes[] = { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
-
-            defaultSeekerLockMode = "LOAL";
-            seekerLockModes[] = { "LOAL", "LOBL" };
-
-            seekLastTargetPos = 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle = 70;           // Angle in front of the missile which can be searched
-            seekerAccuracy = 1;         // seeker accuracy multiplier
-
-            seekerMinRange = 1;
-            seekerMaxRange = 5000;      // Range from the missile which the seeker can visually search
-
-            // Attack profile type selection
-            defaultAttackProfile = "hellfire";
-            attackProfiles[] = {"hellfire", "hellfire_hi", "hellfire_lo"};
-        };
+		class Components;
 	};
-
-	class RHS_ammo_AGM_114L: rhs_ammo_Hellfire_AT
+	class RHS_AH64_base: Heli_Attack_01_base_F
 	{
-        displayName = "AGM-114L";
-        displayNameShort = "AGM-114L";
-        description = "AGM-114L";
-        descriptionShort = "AGM-114L";
-
-
-        hit = 1400;
-        indirectHit = 71;
-        indirectHitRange = 4.5;
-        effectsMissile = "missile2";
-
-        maxSpeed = 450;
-
-        thrustTime = 2.5; // motor burn 2-3 sec
-        thrust = 250;
-        timeToLive = 40;
-
-        ace_rearm_caliber = 178;
-
 	};
-
-	class RHS_ammo_AGM_114M: RHS_ammo_AGM_114K
+	class RHS_AH64D: RHS_AH64_base
 	{
-        displayName = "AGM-114M";
-        displayNameShort = "AGM-114M";
-        description = "AGM-11M";
-        descriptionShort = "AGM-114M";
-
-
-        hit = 400;
-        indirectHit = 150;
-        indirectHitRange = 14;
-        effectsMissile = "missile2";
-
-        irLock = 0;
-        laserLock = 0;
-        manualControl = 0;
-        maxSpeed = 450;
-
-        thrustTime = 2.5; // motor burn 2-3 sec
-        thrust = 250;
-        timeToLive = 40;
-
-        ace_rearm_caliber = 178;
-
-        class ace_missileguidance {
-            enabled = 1;
-
-            minDeflection = 0.0005;      // Minium flap deflection for guidance
-            maxDeflection = 0.01;       // Maximum flap deflection for guidance
-            incDeflection = 0.0005;      // The incrmeent in which deflection adjusts.
-
-            canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
-
-            // Guidance type for munitions
-            defaultSeekerType = "SALH";
-            seekerTypes[] = { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
-
-            defaultSeekerLockMode = "LOAL";
-            seekerLockModes[] = { "LOAL", "LOBL" };
-
-            seekLastTargetPos = 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle = 70;           // Angle in front of the missile which can be searched
-            seekerAccuracy = 1;         // seeker accuracy multiplier
-
-            seekerMinRange = 1;
-            seekerMaxRange = 5000;      // Range from the missile which the seeker can visually search
-
-            // Attack profile type selection
-            defaultAttackProfile = "hellfire";
-            attackProfiles[] = {"hellfire", "hellfire_hi", "hellfire_lo"};
-        };
+		class Components: Components
+		{
+			class TransportPylonsComponent
+			{
+				class Presets
+				{
+					class MR
+					{
+						attachment[]=
+						{
+							"",
+							"rhs_mag_M151_19",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114N",
+							"rhs_mag_M151_19",
+							""
+						};
+						displayname="Multi-Role";
+					};
+					class MR_L
+					{
+						attachment[]=
+						{
+							"",
+							"rhs_mag_M151_19",
+							"rhs_mag_AGM114L_4",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"rhs_mag_M151_19",
+							""
+						};
+						displayname="Multi-Role (Longbow)";
+					};
+					class CS
+					{
+						attachment[]=
+						{
+							"",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114N",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114N",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							""
+						};
+						displayname="Close Support";
+					};
+					class CS_L
+					{
+						attachment[]=
+						{
+							"",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"rhs_mag_AGM114L_4",
+							"rhs_mag_AGM114L_4",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							""
+						};
+						displayname="Close Support (Longbow)";
+					};
+					class GS
+					{
+						attachment[]=
+						{
+							"",
+							"rhs_mag_M151_19",
+							"rhs_mag_M151_19",
+							"rhs_mag_M151_19",
+							"rhs_mag_M151_19",
+							""
+						};
+						displayname="Ground Suppression";
+					};
+					class AA
+					{
+						attachment[]=
+						{
+							"rhs_mag_Sidewinder_heli",
+							"rhs_mag_M151_19",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114N",
+							"rhs_mag_M151_19",
+							"rhs_mag_Sidewinder_heli"
+						};
+						displayname="AA";
+					};
+					class AA_L
+					{
+						attachment[]=
+						{
+							"rhs_mag_Sidewinder_heli",
+							"rhs_mag_M151_19",
+							"rhs_mag_AGM114L_4",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"rhs_mag_M151_19",
+							"rhs_mag_Sidewinder_heli"
+						};
+						displayname="AA (Longbow)";
+					};
+				};
+			};
+		};
 	};
 
-	class RHS_ammo_AGM_114N: RHS_ammo_AGM_114M
+	// Edit presets for AH-1Z
+	class RHS_AH1Z_base: Heli_Attack_01_base_F {
+
+	};
+	class RHS_AH1Z: RHS_AH1Z_base
 	{
-        displayName = "AGM-114N";
-        displayNameShort = "AGM-114N";
-        description = "AGM-114N";
-        descriptionShort = "AGM-114N";
 
-
-        hit = 200;
-        indirectHit = 200;
-        indirectHitRange = 10;
-        explosionEffects = "BombExplosion";
-        effectsMissile = "missile2";
-
-        irLock = 0;
-        laserLock = 0;
-        manualControl = 0;
-        maxSpeed = 450;
-
-        thrustTime = 2.5; // motor burn 2-3 sec
-        thrust = 250;
-        timeToLive = 40;
-
-        ace_rearm_caliber = 178;
-
-        class ace_missileguidance {
-            enabled = 1;
-
-            minDeflection = 0.0005;      // Minium flap deflection for guidance
-            maxDeflection = 0.01;       // Maximum flap deflection for guidance
-            incDeflection = 0.0005;      // The incrmeent in which deflection adjusts.
-
-            canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
-
-            // Guidance type for munitions
-            defaultSeekerType = "SALH";
-            seekerTypes[] = { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
-
-            defaultSeekerLockMode = "LOAL";
-            seekerLockModes[] = { "LOAL", "LOBL" };
-
-            seekLastTargetPos = 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle = 70;           // Angle in front of the missile which can be searched
-            seekerAccuracy = 1;         // seeker accuracy multiplier
-
-            seekerMinRange = 1;
-            seekerMaxRange = 5000;      // Range from the missile which the seeker can visually search
-
-            // Attack profile type selection
-            defaultAttackProfile = "hellfire";
-            attackProfiles[] = {"hellfire", "hellfire_hi", "hellfire_lo"};
-        };
-	};
-	class aa_ammo_dagr: RHS_ammo_AGM_114M {
-
-		displayName="DAGR";
-		displayNameShort="DAGR";
-		maverickWeaponIndexOffset=80;
-		model="\rhsusf\addons\rhsusf_airweapons\proxyammo\rhsusf_r_DAGR_fly";
-		proxyShape="\rhsusf\addons\rhsusf_airweapons\proxyammo\rhsusf_r_DAGR";
-		hit=300;
-		indirectHit=50;
-		indirectHitRange=6;
-		cost=100;
-		maxSpeed=720;
-		irLock=0;
-		airLock=0;
-		laserLock=1;
-		maxControlRange=8000;
-		trackOversteer=1;
-		trackLead=1;
-		maneuvrability=14;
-		timeToLive=20;
-		simulationStep=0.0099999998;
-		airFriction=0.1;
-		sideAirFriction=0.30000001;
-		initTime=0.0020000001;
-		thrustTime=1.5700001;
-		thrust=825;
-		fuseDistance=50;
-		whistleDist=4;
-		muzzleEffect="";
-		effectsMissileInit="MissileDAR1";
-		effectsMissile="missile1";
-		explosionEffects="ATMissileExplosion";
-		weaponLockSystem=4;
-		manualControl=1;
-		aiAmmoUsageFlags="64 + 128+512";
-		missileLockMaxDistance=6000;
-		missileLockMinDistance=1000;
-		missileLockMaxSpeed=56;
-		missileLockCone=25;
-		missileKeepLockedCone=25;
-
-        ace_rearm_caliber = 178;
-
-		 class ace_missileguidance {
-	        enabled = 1;
-
-	        minDeflection = 0.0005;      // Minium flap deflection for guidance
-	        maxDeflection = 0.01;       // Maximum flap deflection for guidance
-	        incDeflection = 0.0005;      // The incrmeent in which deflection adjusts.
-
-	        canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
-
-	        // Guidance type for munitions
-	        defaultSeekerType = "SALH";
-	        seekerTypes[] = { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
-
-	        defaultSeekerLockMode = "LOAL";
-	        seekerLockModes[] = { "LOAL", "LOBL" };
-
-	        seekLastTargetPos = 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-	        seekerAngle = 70;           // Angle in front of the missile which can be searched
-	        seekerAccuracy = 1;         // seeker accuracy multiplier
-
-	        seekerMinRange = 1;
-	        seekerMaxRange = 5000;      // Range from the missile which the seeker can visually search
-
-	        // Attack profile type selection
-	        defaultAttackProfile = "hellfire";
-	        attackProfiles[] = {"hellfire"};
-	    };
-
-	};
-
-
-};
-class CfgMagazines
-{
-	class 12Rnd_PG_missiles;
-
-    // Kilo - tandem shaped charge HEAT (anti-tank)
-    class 6Rnd_ACE_Hellfire_AGM114K: 12Rnd_PG_missiles { // Old style vehicle magazine
-
-		hardpoints[]=
+		class Components: Components
 		{
+			class TransportPylonsComponent
+			{
+				class Presets
+				{
+					class MR
+					{
+						attachment[]=
+						{
+							"rhs_mag_Sidewinder_heli_2",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"rhs_mag_M151_19_green",
+							"rhs_mag_M151_19_green",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"rhs_mag_Sidewinder_heli_2"
+						};
+						displayname="Multi-Role";
+					};
+					class CS
+					{
+						attachment[]=
+						{
+							"rhs_mag_Sidewinder_heli_2",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"PylonRack_4Rnd_ACE_Hellfire_AGM114K",
+							"rhs_mag_Sidewinder_heli_2"
+						};
+						displayname="Close Support";
+					};
+					class GS
+					{
+						attachment[]=
+						{
+							"rhs_mag_Sidewinder_heli_2",
+							"rhs_mag_M151_19_green",
+							"rhs_mag_M151_19_green",
+							"rhs_mag_M151_19_green",
+							"rhs_mag_M151_19_green",
+							"rhs_mag_Sidewinder_heli_2"
+						};
+						displayname="Ground Suppression";
+					};
+				};
+			};
 		};
-    };
-
-    // 1.70 pylon magazines:
-    class PylonMissile_1Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K { // Bare missle
-
-		hardpoints[]=
-		{
-		};
-    };
-    class PylonRack_1Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K { // 1x Launcher Support Rack
-
-		hardpoints[]=
-		{
-		};
-    };
-    class PylonRack_3Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K { // 3x Launcher Support Rack
-
-		hardpoints[]=
-		{
-		};
-    };
-    class PylonRack_4Rnd_ACE_Hellfire_AGM114K: 6Rnd_ACE_Hellfire_AGM114K { // 4x Launcher Support Rack
-
-		hardpoints[]=
-		{
-		};
-    };
-
-    // November - Metal augmented charge (Thermobaric) (Enclosures, ships, urban targets, air defense units)
-    class 6Rnd_ACE_Hellfire_AGM114N: 6Rnd_ACE_Hellfire_AGM114K { // Old style vehicle magazine
-
-		hardpoints[]=
-		{
-		};
-    };
-
-    // 1.70 pylon magazines:
-    class PylonMissile_1Rnd_ACE_Hellfire_AGM114N: PylonMissile_1Rnd_ACE_Hellfire_AGM114K { // Bare missle
-
-		hardpoints[]=
-		{
-		};
-    };
-    class PylonRack_1Rnd_ACE_Hellfire_AGM114N: PylonRack_1Rnd_ACE_Hellfire_AGM114K { // 1x Launcher Support Rack
-
-		hardpoints[]=
-		{
-		};
-    };
-    class PylonRack_3Rnd_ACE_Hellfire_AGM114N: PylonRack_3Rnd_ACE_Hellfire_AGM114K { // 3x Launcher Support Rack
-
-		hardpoints[]=
-		{
-		};
-    };
-    class PylonRack_4Rnd_ACE_Hellfire_AGM114N: PylonRack_4Rnd_ACE_Hellfire_AGM114K { // 4x Launcher Support Rack
-
-		hardpoints[]=
-		{
-		};
-    };
-	class 24Rnd_PG_missiles;
-	class rhs_mag_DAGR_4: 24Rnd_PG_missiles {
-		hardpoints[]=
-		{
-		};
-	};
-	class rhs_mag_DAGR_8: rhs_mag_DAGR_4 {
-		hardpoints[]=
-		{
-		};
-	};
-	class rhs_mag_DAGR_16: rhs_mag_DAGR_8 {
-		hardpoints[]=
-		{
-		};
-	};
-	class rhs_mag_AGM114K;
-	class aa_dagr_4: rhs_mag_AGM114K
-	{
-		count=4;
-		displayName="DAGR 4x";
-		displayNameShort="DAGR 4x";
-		ammo="aa_ammo_dagr";
-		weight=32;
-		hardpoints[]=
-		{
-			"RHS_HP_HELLFIRE_SINGLE",
-			"RHS_HP_MELB"
-		};
-		pylonWeapon="aa_dagr_launcher";
-		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_r_DAGR_4x";
-		mirrorMissilesIndexes[]={2,1,4,3};
-	};
-	class aa_dagr_8: aa_dagr_4
-	{
-		count=8;
-		displayName="DAGR 8x";
-		displayNameShort="DAGR 8x";
-		ammo="aa_ammo_dagr";
-		weight=64;
-		hardpoints[]=
-		{
-			"RHS_HP_HELLFIRE_RACK",
-			"RHS_HP_LONGBOW_RACK",
-			"RHS_HP_MELB"
-		};
-		pylonWeapon="aa_dagr_launcher";
-		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_r_DAGR_8x";
-		mirrorMissilesIndexes[]={2,1,4,3,6,5,8,7};
-	};
-	class aa_dagr_16: aa_dagr_8
-	{
-		count=16;
-		displayName="DAGR 16x";
-		displayNameShort="DAGR 16x";
-		weight=128;
-		hardpoints[]=
-		{
-			"RHS_HP_HELLFIRE_RACK",
-			"RHS_HP_LONGBOW_RACK"
-		};
-		model="\rhsusf\addons\rhsusf_airweapons\proxypylon\rhsusf_pylon_r_DAGR_16x";
-		mirrorMissilesIndexes[]={2,1,4,3,8,7,6,5,12,11,10,9,14,13,16,15};
 	};
 };
 class cfgMods
